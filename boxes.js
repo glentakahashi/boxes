@@ -1,7 +1,7 @@
 /************************** get Heroku port **********************************/
 var port = process.env.PORT || 80;
 /***************************  Require modules  ********************************/
-var     sys = require('sys'), 
+var     sys = require('util'), 
         http = require('http'),
         express = require('express'),
         app = express(),
