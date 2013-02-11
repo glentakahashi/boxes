@@ -1,0 +1,20 @@
+{
+  "name": "boxes",
+  "version": "1.0.0",
+  "description": "Node.js online snake game",
+  "main": "boxes.js",
+  "dependencies": {
+    "socket.io": "~0.9.13"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glentakahashi/boxes"
+  },
+  "keywords": [
+    "node",
+    ""
+  ],
+  "author": "Glen Takahashi",
+  "license": "BSD"
+}
