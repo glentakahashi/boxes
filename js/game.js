@@ -12,12 +12,14 @@ var name;
 var maxSpeed = 15;
 var size = 40;
 var t;
+var width = 1200;
+var height = 600;
 
 $(window).load(function () {
-$("#namebox").keydown(function(e) {
-    // Enter is pressed
-    if (e.keyCode == 13) { enterName(); }
-});
+    $("#namebox").keydown(function(e) {
+        // Enter is pressed
+        if (e.keyCode == 13) { enterName(); }
+    });
 });
 
 function enterName() {
@@ -45,8 +47,8 @@ var b = Math.round(Math.random() * 255);
 game = document.getElementById('game');
 //game.width = vWidth-25;
 //game.height = vHeight-25;
-game.width = 1200;
-game.height = 600;
+game.width = width;
+game.height = height;
 var x = Math.round(Math.random() * game.width); 
 var y = Math.round(Math.random() * game.height);
 gameContext = game.getContext('2d');
@@ -88,6 +90,7 @@ function writeText() {
 	gameContext.fillText(string, game.width - metrics.width-5, 20);
 	var font = gameContext.font;
 	gameContext.font = 'bold 12px sans-serif';
+	gameContext.fillText('Copyright 2013 Glen Takahashi', 5, height-14);
 	if(player!=null)
 	{
 		metrics = gameContext.measureText(player.name + ": " + player.score);
