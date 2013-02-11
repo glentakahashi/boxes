@@ -16,7 +16,7 @@ io.configure(function () {
 });
 //http requests:
 app.use(express.static(__dirname));
-app.get(__filename, function(req, res) {
+app.get("/"+__filename, function(req, res) {
     res.end('ACCESS DENIED');
 });
 sys.puts('starting boxes');
@@ -57,7 +57,7 @@ io.sockets.on('connection', function(client) {
             var c = clients[data.id];
             if(data.x == undefined || data.y == undefined)
                 return;
-            if(c.x != -1 && c.y != -1 && ((Math.abs(c.x - data.x) > maxSpeed + 1 && Math.abs(c.x - data.x) < weight - maxSpeed - 1) || (Math.abs(c.y - data.y) > maxSpeed + 1&& Math.abs(c.y - data.y) < height - maxSpeed - 1)))
+            if(c.x != -1 && c.y != -1 && ((Math.abs(c.x - data.x) > maxSpeed + 1 && Math.abs(c.x - data.x) < width - maxSpeed - 1) || (Math.abs(c.y - data.y) > maxSpeed + 1&& Math.abs(c.y - data.y) < height - maxSpeed - 1)))
             {
                 sys.puts('illegal move ' + (c.x - data.x));
                 client.broadcast.emit('delete', data.id);
