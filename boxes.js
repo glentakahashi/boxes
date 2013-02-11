@@ -3,6 +3,7 @@ var port = process.env.PORT || 8001;
 /***************************  Require modules  ********************************/
 var     sys = require('sys'), 
         io = require('socket.io').listen(port);
+console.log("running on port: " + port);
 io.set('log level', 1);
 //heroku code fix
 io.configure(function () { 
