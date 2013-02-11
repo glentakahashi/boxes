@@ -5,6 +5,7 @@
   "main": "boxes.js",
   "dependencies": {
     "socket.io": "~0.9.13"
+    "express": "~3.1.0"
   },
   "devDependencies": {},
   "repository": {
