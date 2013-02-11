@@ -12,6 +12,14 @@ var name;
 var maxSpeed = 15;
 var size = 40;
 var t;
+
+$(window).load(function () {
+$("#namebox").keydown(function(e) {
+    // Enter is pressed
+    if (e.keyCode == 13) { enterName(); }
+});
+});
+
 function enterName() {
 	name = document.getElementById('namebox').value;
 	if(name.length > 20)
@@ -20,12 +28,12 @@ function enterName() {
 		document.getElementById('namebox').value = '';
 		return;
 	}
-	var div = document.getElementById('con');
-	div.removeChild(document.getElementById('form'));
+	$('#form').remove();
+	$('#about').remove();
 	var gg = document.createElement('canvas');
 	gg.setAttribute('id','game');
 	gg.innerHtml = "This browser is not compatable with this game. Please download <a href='http://www.google.com/chrome'>Google Chrome</a>";
-	div.appendChild(gg);
+	$("#gamespace").append(gg);
 	loadGame();
 }
 
@@ -38,7 +46,7 @@ game = document.getElementById('game');
 //game.width = vWidth-25;
 //game.height = vHeight-25;
 game.width = 1200;
-game.height = 800;
+game.height = 600;
 var x = Math.round(Math.random() * game.width); 
 var y = Math.round(Math.random() * game.height);
 gameContext = game.getContext('2d');

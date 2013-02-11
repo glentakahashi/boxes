@@ -16,10 +16,15 @@ io.configure(function () {
 });
 //http requests:
 app.use(express.static(__dirname));
+app.get(__filename, function(req, res) {
+    res.end('ACCESS DENIED');
+});
 sys.puts('starting boxes');
 var clients = [];
-var ballX = Math.round(Math.random() * 1200);
-var ballY = Math.round(Math.random() * 800);
+var width = 1200;
+var height = 600;
+var ballX = Math.round(Math.random() * width);
+var ballY = Math.round(Math.random() * height);
 var ballR = 7;
 var maxSpeed = 15;
 
@@ -52,7 +57,7 @@ io.sockets.on('connection', function(client) {
             var c = clients[data.id];
             if(data.x == undefined || data.y == undefined)
                 return;
-            if(c.x != -1 && c.y != -1 && ((Math.abs(c.x - data.x) > maxSpeed + 1 && Math.abs(c.x - data.x) < 1200 - maxSpeed - 1) || (Math.abs(c.y - data.y) > maxSpeed + 1&& Math.abs(c.y - data.y) < 800 - maxSpeed - 1)))
+            if(c.x != -1 && c.y != -1 && ((Math.abs(c.x - data.x) > maxSpeed + 1 && Math.abs(c.x - data.x) < weight - maxSpeed - 1) || (Math.abs(c.y - data.y) > maxSpeed + 1&& Math.abs(c.y - data.y) < height - maxSpeed - 1)))
             {
                 sys.puts('illegal move ' + (c.x - data.x));
                 client.broadcast.emit('delete', data.id);
@@ -65,8 +70,8 @@ io.sockets.on('connection', function(client) {
                 if(data.x - 20 - ballR <= ballX && data.x + 20 + ballR >= ballX && data.y - 20 - ballR <= ballY && data.y + 20 + ballR >= ballY)
                 {
                     c.score++;
-                    ballX = Math.round(Math.random() * 1200);
-                    ballY = Math.round(Math.random() * 800);
+                    ballX = Math.round(Math.random() * width);
+                    ballY = Math.round(Math.random() * height);
                     client.broadcast.emit('json',JSON.stringify({"action" : "collect", "id" : data.id, "score" : clients[data.id].score, "ballX" : ballX, "ballY" : ballY, "ballR" : ballR }));
                     client.emit('json',JSON.stringify({"action" : "collect", "id" : data.id, "score" : clients[data.id].score, "ballX" : ballX, "ballY" : ballY, "ballR" : ballR }));
                 }

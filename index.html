@@ -3,17 +3,37 @@
 <head>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 <title>Test game</title>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
 <style type="text/css">
 body
 {
-	background-color: #CCCCCC;
+	background-color: #BBBBBB;
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow: hidden;
+}
+
+#about {
+    width: 800px;
 }
 </style>
 <!-- script to handle game -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script type='text/javascript' src='/socket.io/socket.io.js'></script>
 <script type='text/javascript' src='js/game.js'></script>
 </head>
 <body>
-<div id='con'><div id='form'>Enter name: <input type='text' id='namebox' width='50' /><input type='button' value='Connect' onclick='enterName()' /></div></div>
+    <div id="about">
+        <p>
+        Boxes is a multiplayer snake-like game developed by <a href="http://glentakahashi.com">Glen Takahashi</a> in his free time.
+        You play and compete with every other on the user on the website at the same time, so you are all trying to race for the same dots.
+        You can see their scores and names on the side of the screen.
+        </p>
+        <p>
+        It is written in HTML5 with a node.js backend and hosted on Heroku.
+        You can view the source code on <a href="https://github.com/glentakahashi/boxes">GitHub</a>.
+        </p>
+    </div>
+    <div id='form'>Enter name: <input type='text' id='namebox' width='50' /><input type='button' value='Connect' onclick='enterName()' /></div>
+    <div id='gamespace'></div>
 </body>
 </html>
