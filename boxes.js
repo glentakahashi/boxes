@@ -1,7 +1,14 @@
+/************************** get Heroku port **********************************/
+var port = process.env.PORT || 8001;
 /***************************  Require modules  ********************************/
 var     sys = require('sys'), 
-        io = require('socket.io').listen(8001);
+        io = require('socket.io').listen(port);
 io.set('log level', 1);
+//heroku code fix
+io.configure(function () { 
+    io.set("transports", ["xhr-polling"]); 
+    io.set("polling duration", 10); 
+});
 sys.puts('starting boxes');
 var clients = [];
 var ballX = Math.round(Math.random() * 1200);
