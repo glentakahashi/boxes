@@ -7,15 +7,16 @@
     "socket.io": "~0.9.13",
     "express": "3.x"
   },
-  "engine": "node >= 0.5.0",
+  "engines": {
+      "node": "0.8.x"
+  },
   "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/glentakahashi/boxes"
   },
   "keywords": [
-    "node",
-    ""
+    "node"
   ],
   "author": "Glen Takahashi",
   "license": "BSD"
