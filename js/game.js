@@ -1,5 +1,5 @@
 //create the first player
-var server = window.location.hostname;
+var server = "boxes.glentakahashi.com:8001";
 var player;
 var guests = {};
 var ballX = 0;

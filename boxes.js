@@ -1,19 +1,14 @@
 /************************** get Heroku port **********************************/
-var port = process.env.PORT || 80;
+var http_port = 8081;
+var port = 8001;
 /***************************  Require modules  ********************************/
 var     sys = require('util'), 
-        http = require('http'),
-        express = require('express'),
+	console = require('console'),
+	express = require('express'),
         app = express(),
-        server = http.createServer(app),
-        io = require('socket.io').listen(server);
-server.listen(port);
+        io = require('socket.io').listen(port);
+app.listen(http_port);
 io.set('log level', 1);
-//heroku code fix
-io.configure(function () { 
-    io.set("transports", ["xhr-polling"]); 
-    io.set("polling duration", 10); 
-});
 //http requests:
 app.use(express.static(__dirname));
 app.get("/"+__filename, function(req, res) {
@@ -30,19 +25,20 @@ var maxSpeed = 15;
 
 /*************************  Start socket server  ******************************/
 io.sockets.on('connection', function(client) {
-    client.broadcast.emit('create', client.id);
-    clients[client.id] = client;
-    clients[client.id].score = 0;
-    clients[client.id].x = -1;
-    clients[client.id].y = -1;
-    client.emit('id', client.id);
+    var id = id;
+    client.broadcast.emit('create', id);
+    clients[id] = client;
+    clients[id].score = 0;
+    clients[id].x = -1;
+    clients[id].y = -1;
+    client.emit('id', id);
     client.emit('json', JSON.stringify({"action" : "ball", "ballX" : ballX, "ballY" : ballY, "ballR" : ballR})); 
         // You can also use socket.broadcast() to send to everyone.
         client.on('message', function(data) {
                 // Do some stuff when you recieve a message
         //client.broadcast.emit(JSON.parse(data));
         data = JSON.parse(data);
-        data.id = client.id;
+        data.id = id;
         if(clients[data.id]==undefined || data['action'] == undefined)
             return;
         data.score = clients[data.id].score;
@@ -87,8 +83,8 @@ io.sockets.on('connection', function(client) {
         }
         });
 
-        client.on('disconnect', function(id) {
-        if(clients[id]==undefined)
+        client.on('disconnect', function() {
+        if(clients[id]===undefined)
             return;
         clients[id].broadcast.emit('delete', id);
         delete clients[id];
