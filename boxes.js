@@ -2,8 +2,7 @@
 var http_port = 8081;
 var port = 8001;
 /***************************  Require modules  ********************************/
-var     sys = require('util'), 
-	console = require('console'),
+var     console = require('console'),
 	express = require('express'),
         app = express(),
         io = require('socket.io').listen(port);
@@ -14,7 +13,7 @@ app.use(express.static(__dirname));
 app.get("/"+__filename, function(req, res) {
     res.end('ACCESS DENIED');
 });
-sys.puts('starting boxes');
+console.log('starting boxes');
 var clients = [];
 var width = 1200;
 var height = 600;
@@ -25,7 +24,8 @@ var maxSpeed = 15;
 
 /*************************  Start socket server  ******************************/
 io.sockets.on('connection', function(client) {
-    var id = id;
+    var id = client.id;
+    console.log("client id " + id + " connected");
     client.broadcast.emit('create', id);
     clients[id] = client;
     clients[id].score = 0;
@@ -43,6 +43,7 @@ io.sockets.on('connection', function(client) {
             return;
         data.score = clients[data.id].score;
         if(data['action'] == 'load') {
+		console.log("loading clients for: " + id);
             for(c in clients)
             {
                 var _client = clients[c];
@@ -55,7 +56,7 @@ io.sockets.on('connection', function(client) {
                 return;
             if(c.x != -1 && c.y != -1 && ((Math.abs(c.x - data.x) > maxSpeed + 1 && Math.abs(c.x - data.x) < width - maxSpeed - 1) || (Math.abs(c.y - data.y) > maxSpeed + 1&& Math.abs(c.y - data.y) < height - maxSpeed - 1)))
             {
-                sys.puts('illegal move ' + (c.x - data.x));
+                console.log("client id " + id + " did illegal move " + (c.x - data.x));
                 client.broadcast.emit('delete', data.id);
                 client.emit('hacking', data.id);
                 delete clients[data.id];
