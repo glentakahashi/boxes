@@ -3,7 +3,7 @@ var http_port = 8081;
 var port = 8001;
 /***************************  Require modules  ********************************/
 var     console = require('console'),
-	express = require('express'),
+    express = require('express'),
         app = express(),
         io = require('socket.io').listen(port);
 app.listen(http_port);
@@ -32,7 +32,7 @@ io.sockets.on('connection', function(client) {
     clients[id].x = -1;
     clients[id].y = -1;
     client.emit('id', id);
-    client.emit('json', JSON.stringify({"action" : "ball", "ballX" : ballX, "ballY" : ballY, "ballR" : ballR})); 
+    client.emit('json', JSON.stringify({"action" : "ball", "ballX" : ballX, "ballY" : ballY, "ballR" : ballR}));
         // You can also use socket.broadcast() to send to everyone.
         client.on('message', function(data) {
                 // Do some stuff when you recieve a message
@@ -43,13 +43,13 @@ io.sockets.on('connection', function(client) {
             return;
         data.score = clients[data.id].score;
         if(data['action'] == 'load') {
-		console.log("loading clients for: " + id);
+        console.log("loading clients for: " + id);
             for(c in clients)
             {
                 var _client = clients[c];
                 client.emit('create',c);
                 _client.emit('info','');
-            }   
+            }
         } else if (data['action'] == 'move') {
             var c = clients[data.id];
             if(data.x == undefined || data.y == undefined)
@@ -90,5 +90,5 @@ io.sockets.on('connection', function(client) {
         clients[id].broadcast.emit('delete', id);
         delete clients[id];
         });
-        
+
 });
