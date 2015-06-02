@@ -1,11 +1,20 @@
 /************************** get Heroku port **********************************/
 var http_port = 8081;
-var port = 8001;
+var port = 8543;
 /***************************  Require modules  ********************************/
+var fs = require('fs');
+var privateKey = fs.readFileSync('/etc/nginx/ssl/STAR_glentaka_com.key');
+var certificate = fs.readFileSync('/etc/nginx/ssl/STAR_glentaka_com.chained.crt');
+var https = require('https'),
+    server = https.createServer({
+      key: privateKey,
+      cert: certificate
+    });
 var     console = require('console'),
     express = require('express'),
         app = express(),
-        io = require('socket.io').listen(port);
+        io = require('socket.io').listen(server);
+server.listen(port);
 app.listen(http_port);
 io.set('log level', 1);
 //http requests:
